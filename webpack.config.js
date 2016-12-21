@@ -3,7 +3,6 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: [
-    'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
     './index.js'
@@ -29,18 +28,6 @@ module.exports = {
         ],
         exclude: /node_modules/
       },
-      {
-        test: /\.css$/,
-        loaders: [
-          'style-loader',
-          'css-loader?modules',
-          'postcss-loader',
-        ],
-      },
     ],
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
-  ],
 };
