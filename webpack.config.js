@@ -3,8 +3,6 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://localhost:8080',
-    'webpack/hot/only-dev-server',
     './index.js'
   ],
   output: {
@@ -18,7 +16,9 @@ module.exports = {
     hot: true,
     contentBase: resolve(__dirname, 'dist'),
     publicPath: '/',
-    historyApiFallback: true
+    historyApiFallback: true,
+    inline: true,
+    open: true
   },
   module: {
     loaders: [
@@ -30,4 +30,8 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin()
+  ],
 };
