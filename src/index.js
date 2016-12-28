@@ -1,20 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, {Component} from 'react';
+import { render } from 'react-dom';
+import { Router, Route, Link, browserHistory } from 'react-router';
 import { AppContainer } from 'react-hot-loader';
 import App from './components/App';
-console.log('test')
+import Sample from './components/Sample';
+import Root from './Root';
 
-const render = () => {
-  ReactDOM.render(
-    <AppContainer>
-      <App />
-    </AppContainer>,
-    document.getElementById('app')
-  );
-};
-
-render();
+const ren = render(
+  <AppContainer>
+    <Router history={browserHistory}>
+      <Route path="/" component={App} />
+      <Route path="/sample" component={Sample} />
+    </Router>
+  </AppContainer>, document.getElementById('app')
+);
 
 if (module.hot) {
-  module.hot.accept('./components/App', render);
+  module.hot.accept('./components/App', ren);
 }

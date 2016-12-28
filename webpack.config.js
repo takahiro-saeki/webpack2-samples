@@ -19,11 +19,12 @@ module.exports = {
     hot: true,
     contentBase: resolve(__dirname, 'dist'),
     publicPath: '/',
-    historyApiFallback: true
+    historyApiFallback: true,
+    open: true
   },
   module: {
     loaders: [
-      { test: /\.js$/,
+      { test: /(\.jsx|\.js)$/,
         loaders: [
           'babel-loader',
         ],
