@@ -10,12 +10,12 @@ export default class Field extends Component {
 
   tests() {
     request.get(url, (err, res) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(res.body);
-  }
-});
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(res.body);
+      }
+    });
   }
 
   render() {

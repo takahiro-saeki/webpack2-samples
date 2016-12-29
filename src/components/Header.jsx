@@ -1,13 +1,8 @@
 import React from 'react';
-const styles = {
-  background: '#F7F7F7',
-  padding: '1rem',
-  textAlign: 'center',
-  fontSize: '1.5rem'
-}
+import { Header } from 'semantic-ui-react';
 
-const Header = () => (
-  <div style={styles}>header</div>
+const Headers = () => (
+  <Header as='h2' content='Uptime Guarantee' />
 )
 
-export default Header;
+export default Headers;

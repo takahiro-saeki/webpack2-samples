@@ -6,3 +6,7 @@
 
 ##どういうサンプルアプリを作るか
 world-population apiで世界の人口のデータを取得し表示する
+
+##一旦進めること
+RESTのチェック
+HeaderやFooterなどのbasic componentの整備
