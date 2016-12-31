@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import request from 'superagent';
 import Header from './Header.jsx';
+import UUID from 'uuid-js';
 import { Input, Menu, Segment, Button, Checkbox, Form } from 'semantic-ui-react';
 import { Select } from 'semantic-ui-react'
 import {includes} from 'lodash/collection';
@@ -13,6 +14,7 @@ export default class App extends Component {
     this.handleItemClick = this.handleItemClick.bind(this);
     this.setData = this.setData.bind(this);
     this.onKeyRender = this.onKeyRender.bind(this);
+    this.renSuggest = this.renSuggest.bind(this);
     this.init();
     this.state = {
       activeItem: 'home',
@@ -57,28 +59,41 @@ export default class App extends Component {
     const boxDataRen = [];
     this.state.countries.map((data, i) => {
       if(includes(data.value.toLowerCase(), this.state.countriesList)) {
+        console.log(data)
         boxDataRen.push(data)
-        //console.log(boxDataRen)
-      } else {
-        console.log('else')
       }
     })
     this.setState({listField: boxDataRen})
-    this.renderDom();
   }
 
-  renderDom() {
-    console.log(this.state.listField)
+  renFieldDom() {
+    return (
+      <Form>
+        <Select placeholder='Select your country' options={this.state.countries} />
+        <Button type='submit'>Submit</Button>
+      </Form>
+    )
+  }
+
+  renSuggest() {
+    const loop = this.state.listField.map((data, i) => {
+      return (
+        <div key={UUID.create()}>{data.value}</div>
+      )
+    })
+    return (
+      <section>{loop}</section>
+    )
   }
 
   render() {
     const renField = () => {
       switch(this.state.activeItem) {
         case 'search':
-        return console.log('test')
+        return this.renSuggest()
         break;
         case 'list':
-        return (<div>list</div>)
+        return this.renFieldDom()
         break;
         default:
         return 'test'
@@ -92,10 +107,6 @@ export default class App extends Component {
           <Menu.Item name='search' active={activeItem === 'search'} onClick={this.handleItemClick} />
           <Menu.Item name='list' active={activeItem === 'list'} onClick={this.handleItemClick} />
         </Menu>
-        <Form>
-          <Select placeholder='Select your country' options={this.state.countries} />
-          <Button type='submit'>Submit</Button>
-        </Form>
         <Form>
           <Form.Field>
             <label>First Name</label>
