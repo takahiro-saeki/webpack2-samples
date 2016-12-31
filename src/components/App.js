@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import request from 'superagent';
+import {browserHistory} from 'react-router';
 import Header from './Header.jsx';
 import UUID from 'uuid-js';
 import { Input, Menu, Segment, Button, Checkbox, Form } from 'semantic-ui-react';
@@ -76,14 +77,23 @@ export default class App extends Component {
   }
 
   renSuggest() {
+    const listStyle = {
+      borderBottom: '1px solid #CCC',
+      padding: '1rem',
+      fontSize: '1rem'
+    }
     const loop = this.state.listField.map((data, i) => {
       return (
-        <div key={UUID.create()}>{data.value}</div>
+        <div style={listStyle} key={UUID.create()}>{data.value}</div>
       )
     })
     return (
       <section>{loop}</section>
     )
+  }
+
+  location() {
+    browserHistory.push(`/sample`)
   }
 
   render() {
@@ -112,7 +122,7 @@ export default class App extends Component {
             <label>First Name</label>
             <input placeholder='First Name' onKeyUp={this.onKeyRender} />
           </Form.Field>
-          <Button type='submit'>Submit</Button>
+          <Button type='button' onClick={this.location}>Submit</Button>
         </Form>
         {renField()}
       </div>
