@@ -1,1 +1,5 @@
-@import 'common/header';
+.list-basic {
+  border-bottom: 1px solid #CCC;
+  padding: 1rem;
+  font-size: 1rem;
+}

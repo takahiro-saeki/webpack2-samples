@@ -7,6 +7,7 @@ import { Input, Menu, Segment, Button, Checkbox, Form } from 'semantic-ui-react'
 import { Select } from 'semantic-ui-react'
 import {includes} from 'lodash/collection';
 const countryUrl = 'http://api.population.io:80/1.0/countries';
+import style from '../css/style.css';
 
 export default class App extends Component {
   constructor(props) {
@@ -16,12 +17,14 @@ export default class App extends Component {
     this.setData = this.setData.bind(this);
     this.onKeyRender = this.onKeyRender.bind(this);
     this.renSuggest = this.renSuggest.bind(this);
+    this.extractData = this.extractData.bind(this);
     this.init();
     this.state = {
       activeItem: 'home',
       countries: [{value: 'default', text: 'default'}],
       countriesList: 'blank',
-      listField: [{text: 'default', value: 'default'}]
+      listField: [{text: 'default', value: 'default'}],
+      currentCountry: '-'
     }
   }
 
@@ -76,15 +79,14 @@ export default class App extends Component {
     )
   }
 
+  extractData(e) {
+    this.setState({currentCountry: e.target.textContent})
+  }
+
   renSuggest() {
-    const listStyle = {
-      borderBottom: '1px solid #CCC',
-      padding: '1rem',
-      fontSize: '1rem'
-    }
     const loop = this.state.listField.map((data, i) => {
       return (
-        <div style={listStyle} key={UUID.create()}>{data.value}</div>
+        <div className={style['list-basic']} key={UUID.create()} onClick={this.extractData}>{data.value}</div>
       )
     })
     return (
@@ -119,7 +121,7 @@ export default class App extends Component {
         </Menu>
         <Form>
           <Form.Field>
-            <label>First Name</label>
+            <label>Country: {this.state.currentCountry}</label>
             <input placeholder='First Name' onKeyUp={this.onKeyRender} />
           </Form.Field>
           <Button type='button' onClick={this.location}>Submit</Button>
