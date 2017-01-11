@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import request from 'superagent';
+import {browserHistory} from 'react-router';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import Headers from './Header.jsx';
 import Field from './Field.jsx';
@@ -15,6 +16,7 @@ export default class Sample extends Component {
   }
 
   init() {
+    console.log(this.props.router)
     request.get(url, (err, res) => {
       return new Promise((resolve, reject) => {
         if (err) {
@@ -24,6 +26,10 @@ export default class Sample extends Component {
         }
       })
     });
+  }
+
+  location() {
+    browserHistory.push(`/`)
   }
 
   setData(data) {
@@ -48,6 +54,8 @@ export default class Sample extends Component {
     return (
       <div>
         <Headers />
+        <h2>country: ---</h2>
+        <h2>age: ---</h2>
         <LineChart width={730} height={250} data={this.state.population}
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
           <XAxis dataKey="year" />
@@ -58,6 +66,7 @@ export default class Sample extends Component {
           <Line type="monotone" dataKey="male" stroke="#8884d8" />
           <Line type="monotone" dataKey="female" stroke="#82ca9d" />
         </LineChart>
+        <button type='button' onClick={this.location}>back</button>
       </div>
     )
   }

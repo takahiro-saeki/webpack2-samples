@@ -70,11 +70,15 @@ export default class App extends Component {
     this.setState({listField: boxDataRen})
   }
 
+  information() {
+    browserHistory.push(`/sample`)
+  }
+
   renFieldDom() {
     return (
       <Form>
         <Select placeholder='Select your country' options={this.state.countries} />
-        <Button type='submit'>Submit</Button>
+        <Button type='button' onClick={this.information}>Submit</Button>
       </Form>
     )
   }
@@ -95,7 +99,7 @@ export default class App extends Component {
   }
 
   location() {
-    browserHistory.push(`/sample`)
+    browserHistory.push(null, `/sample`)
   }
 
   render() {
