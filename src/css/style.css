@@ -1,14 +1,5 @@
-html, body {
-  margin: 0;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-  li {
-    list-style: none;
-  }
-}
+@import 'common/base';
+@import 'common/header';
 
 .country {
   text-align: center;
@@ -58,4 +49,13 @@ ul {
 .wrapper {
   max-width: 1024px;
   margin: 0 auto;
+}
+
+.back-btn-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  button {
+    max-width: 400px;
+  }
 }

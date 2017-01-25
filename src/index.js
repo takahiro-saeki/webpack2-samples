@@ -12,7 +12,7 @@ const ren = render(
       <Route path="/" component={App} />
       <Route path="/sample" component={Sample} />
       <Route path="/Japan" component={Sample} />
-      <Route path="/America" component={Sample} />
+      <Route path="/China" component={Sample} />
       <Route path="/Canada" component={Sample} />
     </Router>
   </AppContainer>, document.getElementById('app')

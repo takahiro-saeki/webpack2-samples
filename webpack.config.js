@@ -18,6 +18,9 @@ module.exports = {
   performance: {
     hints: false
   },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
   devServer: {
     hot: true,
     contentBase: path.resolve(__dirname, 'dist'),
