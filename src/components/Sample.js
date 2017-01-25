@@ -3,7 +3,6 @@ import request from 'superagent';
 import {browserHistory} from 'react-router';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import Headers from './Header.jsx';
-import Field from './Field.jsx';
 const url = 'http://api.population.io:80/1.0/population/2016/Japan/';
 
 export default class Sample extends Component {
