@@ -3,11 +3,14 @@ import { Header } from 'semantic-ui-react';
 const headerStyle = {
   borderBottom: '1px solid rgba(0,0,0,0.15)',
   padding: '1rem',
-  textAlign: 'center'
+  textAlign: 'center',
+  background: '#00acc1',
+  color: '#FFF',
+  fontSize: '1.5rem'
 }
 
 const Headers = () => (
-  <Header as='h2' style={headerStyle} content='webpack2-example' />
+  <header style={headerStyle}>webpack2 with React.js example</header>
 )
 
 export default Headers;

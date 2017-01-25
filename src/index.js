@@ -4,15 +4,16 @@ import { Router, Route, Link, browserHistory } from 'react-router';
 import { AppContainer } from 'react-hot-loader';
 import App from './components/App';
 import Sample from './components/Sample';
-import ApiTest from './components/test';
-import Root from './Root';
+document.body.style.margin = 0;
 
 const ren = render(
   <AppContainer>
     <Router history={browserHistory}>
       <Route path="/" component={App} />
       <Route path="/sample" component={Sample} />
-      <Route path="/test" component={ApiTest} />
+      <Route path="/Japan" component={Sample} />
+      <Route path="/America" component={Sample} />
+      <Route path="/Canada" component={Sample} />
     </Router>
   </AppContainer>, document.getElementById('app')
 );

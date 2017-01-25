@@ -4,7 +4,7 @@ import {browserHistory} from 'react-router';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import Headers from './Header.jsx';
 import Field from './Field.jsx';
-const url = 'http://api.population.io:80/1.0/population/Japan/18/';
+const url = 'http://api.population.io:80/1.0/population/2016/Japan/';
 
 export default class Sample extends Component {
   constructor(props) {
@@ -41,7 +41,8 @@ export default class Sample extends Component {
         const serialize = {
           year: data.year,
           female: data.females,
-          male: data.males
+          male: data.males,
+          age: `age: ${data.age}`
         }
         box.push(serialize)
       }
@@ -54,19 +55,20 @@ export default class Sample extends Component {
     return (
       <div>
         <Headers />
-        <h2>country: ---</h2>
-        <h2>age: ---</h2>
-        <LineChart width={730} height={250} data={this.state.population}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-          <XAxis dataKey="year" />
-          <YAxis />
-          <CartesianGrid strokeDasharray="3 3" />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="male" stroke="#8884d8" />
-          <Line type="monotone" dataKey="female" stroke="#82ca9d" />
-        </LineChart>
-        <button type='button' onClick={this.location}>back</button>
+        <section className="wrapper">
+          <h2>country: ---</h2>
+          <LineChart width={1024} height={500} data={this.state.population}
+            margin={{top: 5, right: 30, left: 20, bottom: 0}}>
+            <XAxis dataKey="age" />
+            <YAxis />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Tooltip />
+            <Legend height={1}/>
+            <Line type="monotone" dataKey="male" stroke="#8884d8" />
+            <Line type="monotone" dataKey="female" stroke="#82ca9d" />
+          </LineChart>
+          <button type='button' onClick={this.location}>back</button>
+        </section>
       </div>
     )
   }

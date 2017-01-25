@@ -3,134 +3,69 @@ import request from 'superagent';
 import {browserHistory} from 'react-router';
 import Header from './Header.jsx';
 import UUID from 'uuid-js';
-import { Input, Menu, Segment, Button, Checkbox, Form } from 'semantic-ui-react';
-import { Select } from 'semantic-ui-react'
-import {includes} from 'lodash/collection';
-const countryUrl = 'http://api.population.io:80/1.0/countries';
 import style from '../css/style.css';
+import 'flexboxgrid';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.init = this.init.bind(this);
-    this.handleItemClick = this.handleItemClick.bind(this);
-    this.setData = this.setData.bind(this);
-    this.onKeyRender = this.onKeyRender.bind(this);
-    this.renSuggest = this.renSuggest.bind(this);
-    this.extractData = this.extractData.bind(this);
-    this.init();
+    this.select = this.select.bind(this);
+    this.check = this.check.bind(this);
+    this.location = this.location.bind(this);
     this.state = {
-      activeItem: 'home',
-      countries: [{value: 'default', text: 'default'}],
-      countriesList: 'blank',
-      listField: [{text: 'default', value: 'default'}],
-      currentCountry: '-'
+      country: 'Japan',
+      japan: true,
+      america: false,
+      canada: false
     }
   }
 
-  init() {
-    request.get(countryUrl, (err, res) => {
-      return new Promise((resolve, reject) => {
-        if (err) {
-          reject(this.fail(err))
-        } else {
-          resolve(this.setData(res.body.countries))
-        }
-      })
-    });
-  }
-
-  fail(data) {
-    console.log(data)
-  }
-
-  setData(fetch) {
-    const initData = []
-    fetch.map((data, i) => {
-      let box = {value: data, text: data}
-      initData.push(box)
-    })
-    this.setState({countries: initData})
-  }
-
-  handleItemClick(e) {
-    const data = e.target.textContent.toLowerCase()
-    this.setState({activeItem: data})
-  }
-
-  onKeyRender(e) {
-    this.setState({countriesList: e.target.value})
-    const boxDataRen = [];
-    this.state.countries.map((data, i) => {
-      if(includes(data.value.toLowerCase(), this.state.countriesList)) {
-        console.log(data)
-        boxDataRen.push(data)
-      }
-    })
-    this.setState({listField: boxDataRen})
-  }
-
-  information() {
-    browserHistory.push(`/sample`)
-  }
-
-  renFieldDom() {
-    return (
-      <Form>
-        <Select placeholder='Select your country' options={this.state.countries} />
-        <Button type='button' onClick={this.information}>Submit</Button>
-      </Form>
-    )
-  }
-
-  extractData(e) {
-    this.setState({currentCountry: e.target.textContent})
-  }
-
-  renSuggest() {
-    const loop = this.state.listField.map((data, i) => {
-      return (
-        <div className={style['list-basic']} key={UUID.create()} onClick={this.extractData}>{data.value}</div>
-      )
-    })
-    return (
-      <section>{loop}</section>
-    )
+  select(e) {
+    switch(e.target.textContent) {
+      case 'Japan':
+        return this.setState({country: 'Japan', japan: true, america: false, canada: false});
+        break;
+      case 'America':
+        return this.setState({country: 'America', japan: false, america: true, canada: false});
+        break;
+      case 'Canada':
+        return this.setState({country: 'Canada', japan: false, america: false, canada: true});
+        break;
+      default:
+        return this.setState({country: 'Japan', japan: true, america: false, canada: false});
+        break;
+    }
   }
 
   location() {
-    browserHistory.push(null, `/sample`)
+    browserHistory.push(`/${this.state.country}`)
+  }
+
+  check() {
+    console.log(this.state)
   }
 
   render() {
-    const renField = () => {
-      switch(this.state.activeItem) {
-        case 'search':
-        return this.renSuggest()
-        break;
-        case 'list':
-        return this.renFieldDom()
-        break;
-        default:
-        return 'test'
-      }
-    }
-    const { activeItem } = this.state;
     return (
       <div>
         <Header />
-        <Menu pointing>
-          <Menu.Item name='search' active={activeItem === 'search'} onClick={this.handleItemClick} />
-          <Menu.Item name='list' active={activeItem === 'list'} onClick={this.handleItemClick} />
-        </Menu>
-        <Form>
-          <Form.Field>
-            <label>Country: {this.state.currentCountry}</label>
-            <input placeholder='First Name' onKeyUp={this.onKeyRender} />
-          </Form.Field>
-          <Button type='button' onClick={this.location}>Submit</Button>
-        </Form>
-        {renField()}
+        <section className="container-fluid country">
+          <ul className="row">
+            <li className="col-xs-12 col-sm-6 col-md-4">
+              <div className={this.state.japan ? 'active' : ''} onClick={this.select}>Japan</div>
+            </li>
+            <li className="col-xs-12 col-sm-6 col-md-4">
+              <div className={this.state.canada ? 'active' : ''} onClick={this.select}>Canada</div>
+              </li>
+            <li className="col-xs-12 col-sm-6 col-md-4">
+              <div className={this.state.america ? 'active' : ''} onClick={this.select}>America</div>
+            </li>
+          </ul>
+          <div className="row center-md">
+            <button type='button' className="col-xs-12 col-md-4 btn" onClick={this.location}>send</button>
+            <div onClick={this.check}>check</div>
+          </div>
+        </section>
       </div>
     )
   }

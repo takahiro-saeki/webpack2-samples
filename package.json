@@ -6,9 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server",
-    "build": "webpack --env=dev --progress --profile",
-    "build:dev": "webpack --env=dev --progress --profile",
-    "build:dist": "webpack --env=prod --progress --profile"
+    "build": "webpack --progress"
   },
   "repository": {
     "type": "git",
@@ -28,6 +26,8 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-2": "^6.18.0",
     "css-loader": "^0.26.1",
+    "flexboxgrid": "^6.3.1",
+    "html-webpack-plugin": "^2.26.0",
     "lodash": "^4.17.3",
     "node-uuid": "^1.4.7",
     "postcss-loader": "^1.2.1",
@@ -41,7 +41,7 @@
     "style-loader": "^0.13.1",
     "superagent": "^3.3.1",
     "uuid-js": "^0.7.5",
-    "webpack": "^2.1.0-beta.20",
+    "webpack": "^2.1.0-beta.28",
     "webpack-dev-server": "^2.1.0-beta.0"
   }
 }
