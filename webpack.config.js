@@ -14,7 +14,7 @@ module.exports = {
     publicPath: '/'
   },
   context: path.resolve(__dirname, 'src'),
-  devtool: 'inline-source-map',
+  devtool: '#eval-source-map',
   performance: {
     hints: false
   },
@@ -22,11 +22,9 @@ module.exports = {
     extensions: ['.js', '.jsx']
   },
   devServer: {
-    hot: true,
     contentBase: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    historyApiFallback: true,
-    open: true
+    historyApiFallback: true
   },
   module: {
     rules: [
@@ -56,13 +54,29 @@ module.exports = {
         ]
       }
     ]
-  },
-  plugins: [
+  }
+}
+
+if (process.env.NODE_ENV === 'production') {
+  module.exports.devtool = '#source-map'
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      compress: {
+        warnings: false
+      }
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
+    }),
     new HtmlWebpackPlugin({
       title: 'webpack2 with React.js example',
       template: path.join(__dirname, './src/index.ejs')
     }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin()
-  ]
+  ])
 }
