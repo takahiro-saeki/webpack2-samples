@@ -17,7 +17,7 @@ export default class Sample extends Component {
 
   init() {
     const adjustUrl = location.pathname.replace('/', '');
-    const url = `http://api.population.io:80/1.0/population/2016/${adjustUrl}/`
+    const url = `http://api.population.io:80/1.0/population/2017/${adjustUrl}/`
     request.get(url, (err, res) => {
       return new Promise((resolve, reject) => {
         if (err) {
